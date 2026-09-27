@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Open Terminal Here</name>
+	<submenu></submenu>
+	<unique-id>1788067659043368-1</unique-id>
+	<command>exo-open --working-directory %f --launch TerminalEmulator</command>
+	<description>Example for a custom action</description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon>package-x-generic</icon>
+	<name>Compress tat.gz</name>
+	<submenu></submenu>
+	<unique-id>1790427965116168-1</unique-id>
+	<command>tar -czvf %n.tar.gz %F</command>
+	<description>Compress selected files to tar.gz</description>
+	<range></range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>package-x-generic</icon>
+	<name>Compress ZIP</name>
+	<submenu></submenu>
+	<unique-id>1790427965116174-2</unique-id>
+	<command>zip -r %n.zip %F</command>
+	<description>Compress selected files to ZIP</description>
+	<range></range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+</actions>

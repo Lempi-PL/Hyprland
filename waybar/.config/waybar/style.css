@@ -1,0 +1,240 @@
+/* ================================= \
+| Waybar Style Configuration (2026)  |
+| Arch Linux / Hyprland              |
+\ ================================= */
+
+/* ---------------------------------- \
+| Global Settings and Fonts           |
+\ ---------------------------------- */
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "Symbols Nerd Font Mono", "Symbols Nerd Font", "Font Awesome 7 Free", "Font Awesome 7 Brands", "Font Awesome 6 Free", "Font Awesome 6 Brands", Roboto, "Noto Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    min-height: 0;
+}
+
+/* ------------------------------------------------- \
+| Top Bar ( Vitals, Clock, Control Center )          | 
+\ ------------------------------------------------- */
+window#waybar.topbar {
+    background-color: transparent;
+}
+
+/* Arch Linux corner tile: exactly the sidebar width x topbar height. */
+#custom-arch {
+    min-width: 48px;
+    min-height: 34px;
+    padding: 0;
+    margin: 0;
+    font-family: "Symbols Nerd Font Mono", "Symbols Nerd Font", sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: #1793d1;
+    background-color: rgba(30, 30, 46, 0.68);
+    border-radius: 0 0 10px 0;
+}
+
+/* ------------------------------------------------ \
+| Top Bar Modules (Pills)                           |
+\ ------------------------------------------------ */
+#temperature,
+#cpu,
+#memory,
+#battery,
+#clock,
+#tray,
+#backlight,
+#custom-mic,
+#pulseaudio,
+#network,
+#custom-power
+{
+    padding: 0 12px;
+    margin: 4px 4px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: all 0.2s ease-in-out;
+}
+
+/* const width for modules */
+#temperature,
+#cpu,
+#memory,
+#battery,
+#backlight,
+#pulseaudio,
+#custom-mic {
+    min-width: 60px;
+}
+/* --- Individual Modules Colors --- */
+
+/* CPU, RAM, Temperature, Battery */
+#temperature { color: #a6e3a1; } /* Green */ 
+#cpu { color: #89b4fa; } /* blue */ 
+#memory { color: #f5c2e7; } /* Purple/Pink */
+
+/* Battery (Dynamic States) */
+#battery { color: #a6e3a1; }/* Green */
+#battery.plugged { color: #89dceb; }/* Cyan */
+#battery.charging { color: #f9e2af; } /* Yellow */
+#battery.warning:not(.charging) { color: #fab387; } /* Orange */ 
+#battery.critical:not(.charging) {
+    background-color: #f38ba8; /* Red background (lower than 15%) */
+    color: #1e1e2e;
+    animation-name: blink;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+/* Clock */
+#clock { color: #cba6f7; font-weight: 900; }
+
+/* System Tray */
+#tray > .passive { -gtk-icon-effect: dim; }
+#tray > .needs-attention { -gtk-icon-effect: highlight; }
+
+/* Backlight */
+#backlight { color: #f9e2af; } /* Yellow */
+
+/* Microphone states*/
+#custom-mic { color: #fab387; } /*  Peach Orange */ 
+#custom-mic.muted { color: #a6adc8; } /* Grey */
+
+/* Sound States*/
+#pulseaudio { color: #89b4fa; } /* Blue */
+#pulseaudio.muted { color: #a6adc8; font-size: 18px;} /* Grey */
+
+/* Network States */
+#network { color: #89dceb; } /* Cyan */
+#network.disconnected { color: #f38ba8; } /* Red  */
+#network.disabled { color: #a6adc8; } /* Grey */
+
+/* Power Button */
+#custom-power {
+    color: #f38ba8; /* Red */
+    padding: 0 15px;
+    font-size: 18px;
+}
+
+
+/* ----------------------------------------------------\
+| Tooltips (Dynamics after hover mouse)                |
+\ --------------------------------------------------- */
+tooltip {
+    background: rgba(30, 30, 46, 0.95);
+    border: 1px solid rgba(137, 180, 250, 0.05);
+    border-radius: 10px;
+}
+
+tooltip label {
+    color: #cdd6f4;
+    padding: 5px;
+}
+
+/* ========================\
+| Sidebar Styles           |
+\ ========================*/
+window#waybar.sidebar {
+    background: transparent;
+    background-color: transparent;
+    border: none;
+}
+
+/* Workspaces 1-6: custom clickable buttons for Hyprland Lua mode */
+#custom-ws1,
+#custom-ws2,
+#custom-ws3,
+#custom-ws4,
+#custom-ws5,
+#custom-ws6 {
+    color: #a6adc8;
+    background-color: rgba(30, 30, 46, 0.55);
+    font-family: Roboto, "Noto Sans", sans-serif;
+    font-weight: 800;
+    font-size: 15px;
+    min-width: 36px;
+    min-height: 36px;
+    padding: 0;
+    margin: 3px 6px;
+    border-radius: 13px;
+    transition: all 0.2s ease;
+}
+
+#custom-ws1:hover,
+#custom-ws2:hover,
+#custom-ws3:hover,
+#custom-ws4:hover,
+#custom-ws5:hover,
+#custom-ws6:hover {
+    background-color: rgba(137, 180, 250, 0.20);
+    color: #cdd6f4;
+}
+
+#custom-ws1.active,
+#custom-ws2.active,
+#custom-ws3.active,
+#custom-ws4.active,
+#custom-ws5.active,
+#custom-ws6.active {
+    color: #1e1e2e;
+    background-color: rgba(166, 227, 161, 0.92);
+}
+
+/* App launchers and search: 36x36 rounded-square tiles */
+#custom-term,
+#custom-files,
+#custom-code,
+#custom-firefox,
+#custom-discord,
+#custom-search {
+    color: #FFFFFF;
+    background-color: rgba(30, 30, 46, 0.55);
+    font-size: 20px;
+    font-weight: 400;
+    min-width: 36px;
+    min-height: 36px;
+    padding: 0;
+    margin: 3px 6px;
+    border-radius: 13px;
+    transition: all 0.2s ease;
+}
+
+
+#custom-files {
+    color: #FFF300;
+}
+#custom-code {
+    color: #0098FF;
+}
+#custom-firefox {
+    color: #FF9500;
+    font-size: 27px;
+}
+#custom-discord {
+    color: #7289da;
+}
+
+#custom-term:hover,
+#custom-files:hover,
+#custom-code:hover,
+#custom-firefox:hover,
+#custom-discord:hover,
+#custom-search:hover {
+    background-color: rgba(137, 180, 250, 0.22);
+    color: #E0E3FF;
+}
+
+
+/* -----------------------------------\
+| Animations                          |      
+\ ---------------------------------- */
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #1e1e2e;
+      }
+}

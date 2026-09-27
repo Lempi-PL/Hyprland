@@ -1,0 +1,210 @@
+[
+  //==========
+  // TOP BAR =
+  //==========
+  {
+    "name": "topbar",
+    "layer": "top",
+    "position": "top",
+    "height": 34,
+    "spacing": 10,
+    "mode": "dock",
+    "start_hidden": false,
+    "on-sigusr1": "toggle",
+    "on-sigusr2": "noop",
+    "reload_style_on_change": true,
+
+    // Left: Vitals
+    "modules-left": ["custom/arch", "temperature", "cpu", "memory", "battery"],
+    
+    // Center: Date and Time
+    "modules-center": ["clock"],
+    
+    //Right: Background apps (tray) + Control Center
+    "modules-right": [
+      "tray", 
+      "backlight", 
+      "custom/mic",
+      "pulseaudio",
+      "network", 
+      "custom/power"
+    ],
+    
+    
+
+    "custom/arch": {
+      "format": "\uf303",
+      "tooltip": false
+    },
+
+    "temperature": { "format": "\uf2c9 {temperatureC}°C" },
+    "cpu": { "format": "\uf2db {usage}%" },
+    "memory": { "format": "\uefc5 {percentage}%" },
+    "battery": { 
+      "states": {
+        "warning": 30,
+        "critical": 15
+      },
+      "format": "{icon} {capacity}%",
+      "format-charging": "\uf1e6 \uf0e7 {capacity}%",
+      "format-plugged": "\uf1e6 {capacity}%",
+      "format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"]
+    },
+
+
+    "clock": {
+      "format": "{:%A %B %d %H:%M}", // Day of week, month, day, hour
+      "tooltip": false,
+      "on-click": "gsimplecal"
+    },
+
+
+    "tray": { "spacing": 10 },
+    "backlight": {
+      "format": "{icon} {percent}%",
+      "format-icons": ["\udb80\udcdd", "\udb80\udcdf", "\udb80\udcde", "\udb80\udce0"],
+      "on-scroll-up": "~/.config/hypr/brightness.sh up",
+      "on-scroll-down": "~/.config/hypr/brightness.sh down",
+      "tooltip-format": "Brightness"
+    },
+    "custom/mic": {
+      "exec": "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | awk '{if ($3 == \"[MUTED]\") printf \"\udb80\udf6d\\n\\nmuted\\n\"; else printf \"\udb80\udf6c %d%%\\n\\n\\n\", int($2*100)}'",
+      "interval": 1,
+      "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+      "on-click-right": "pavucontrol -t 4",
+      "on-scroll-up": "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SOURCE@ 5%+",
+      "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",
+      "tooltip-format": "Sensivity"
+    },
+    "pulseaudio": {
+      "format": "{icon} {volume}%",
+      "format-muted": "\udb81\udf5f",
+      "format-icons": {
+        "default": ["\udb81\udd7f", "\udb81\udd80", "\udb81\udd7e"]
+      },
+      "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+      "on-click-right": "pavucontrol -t 3",
+      "on-scroll-up": "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+",
+      "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+      "tooltip-format": "Volume"
+    },
+    "network": {
+      "format-wifi": "{icon}",
+      "format-ethernet": "󰈀",
+      "format-disconnected": "\uead0",
+      "format-disabled": "\udb82\udd2d",
+      "format-icons": ["\udb82\udd2f", "\udb82\udd1f", "\udb82\udd22", "\udb82\udd25", "\udb82\udd28"],
+      "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+      "tooltip-format-ethernet": "Ethernet: {ifname}",
+      "tooltip-format-disconnected": "Disconnected",
+      "tooltip-format-disabled": "Wifi Off",
+      "on-click": "kitty -e nmtui",
+      "on-click-right": "bash -c 'if [ \"$(nmcli radio wifi)\" = \"enabled\" ]; then nmcli radio wifi off; else nmcli radio wifi on; fi'"
+    },
+    "custom/power": {
+      "format": "\udb81\udc25",
+      "tooltip-formayt": "Power",
+      "on-click": "wlogout"
+    }
+  },
+  {
+    "name": "sidebar",
+    "layer": "top",
+    "position": "left",
+    "width": 48,
+    "spacing": 4,
+    "margin-top": 34,
+    "mode": "dock",
+    "start_hidden": false,
+    "on-sigusr1": "noop",
+    "on-sigusr2": "toggle",
+    "reload_style_on_change": true,
+
+    // Waybar 0.15's native hyprland/workspaces click still sends the old
+    // Hyprland dispatcher when Lua config is active. These six custom buttons
+    // use the current Lua dispatcher directly instead.
+    "modules-left": ["custom/ws1", "custom/ws2", "custom/ws3", "custom/ws4", "custom/ws5", "custom/ws6"],
+    "modules-center": ["custom/term", "custom/files", "custom/code", "custom/firefox", "custom/discord", "custom/search"],
+    "modules-right": [],
+
+    "custom/ws1": {
+      "exec": "~/.config/hypr/workspace-state.sh 1",
+      "return-type": "json",
+      "signal": 8,
+      "tooltip": true,
+      "on-click": "hyprctl dispatch 'hl.dsp.focus({ workspace = 1 })'"
+    },
+    "custom/ws2": {
+      "exec": "~/.config/hypr/workspace-state.sh 2",
+      "return-type": "json",
+      "signal": 8,
+      "tooltip": true,
+      "on-click": "hyprctl dispatch 'hl.dsp.focus({ workspace = 2 })'"
+    },
+    "custom/ws3": {
+      "exec": "~/.config/hypr/workspace-state.sh 3",
+      "return-type": "json",
+      "signal": 8,
+      "tooltip": true,
+      "on-click": "hyprctl dispatch 'hl.dsp.focus({ workspace = 3 })'"
+    },
+    "custom/ws4": {
+      "exec": "~/.config/hypr/workspace-state.sh 4",
+      "return-type": "json",
+      "signal": 8,
+      "tooltip": true,
+      "on-click": "hyprctl dispatch 'hl.dsp.focus({ workspace = 4 })'"
+    },
+    "custom/ws5": {
+      "exec": "~/.config/hypr/workspace-state.sh 5",
+      "return-type": "json",
+      "signal": 8,
+      "tooltip": true,
+      "on-click": "hyprctl dispatch 'hl.dsp.focus({ workspace = 5 })'"
+    },
+    "custom/ws6": {
+      "exec": "~/.config/hypr/workspace-state.sh 6",
+      "return-type": "json",
+      "signal": 8,
+      "tooltip": true,
+      "on-click": "hyprctl dispatch 'hl.dsp.focus({ workspace = 6 })'"
+    },
+
+    "custom/term": {
+      "format": "\uf120",
+      "tooltip-format": "Terminal",
+      "on-click": "~/.config/hypr/focus.sh kitty '(?i).*kitty.*'"
+    },
+
+    "custom/files": {
+      "format": "\uf4d4",
+      "tooltip-format": "Files",
+      "on-click": "~/.config/hypr/focus.sh thunar '(?i).*thunar.*'"
+    },
+
+    "custom/code": {
+      "format": "\uec2a",
+      "tooltip-format": "VS Code",
+      "on-click": "~/.config/hypr/focus.sh code '(?i)^(code|code-oss|codium|vscodium)$'"
+    },
+
+    "custom/firefox": {
+      "format": "\ue745",
+      "tooltip-format": "Firefox",
+      "on-click": "~/.config/hypr/focus.sh firefox '(?i).*firefox.*'"
+    },
+
+    "custom/discord": {
+      "format": "\uf1ff",
+      "tooltip-format": "Discord",
+      "on-click": "~/.config/hypr/focus.sh 'flatpak run com.discordapp.Discord' '(?i).*discord.*'"
+    },
+
+    "custom/search": {
+      "format": "",
+      "tooltip-format": "Search Apps",
+      "on-click": "wofi --show drun"
+    }
+  }]
+
+  
