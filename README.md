@@ -1,4 +1,4 @@
-# 🌌 Cyber-Wayland: Hyprland Lua Dotfiles (2026 Edition)
+# 🌌 Cyber-Wayland: Hyprland Lua Dotfiles (V1)
 
 Welcome to my custom Wayland desktop environment! This repository contains a modern, highly optimized configuration for **Hyprland** using the native **Lua API** (standard in 2026), paired with a beautiful dual-bar **Waybar** setup and a deep **TokyoNight** aesthetic.
 
