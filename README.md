@@ -1,4 +1,4 @@
-# 🌌 Cyber-Wayland: Hyprland Lua Dotfiles (V1)
+# 🌌 Cyber-Wayland: Hyprland Lua Configuration (2026 Edition)
 
 Welcome to my custom Wayland desktop environment! This repository contains a modern, highly optimized configuration for **Hyprland** using the native **Lua API** (standard in 2026), paired with a beautiful dual-bar **Waybar** setup and a deep **TokyoNight** aesthetic.
 
@@ -33,13 +33,25 @@ yay -S tokyonight-gtk-theme-git hyprpolkitagent
 
 ---
 
-## 🚀 2. Applying the Dotfiles
+## 🖼️ 2. Wallpaper Setup (Hyprpaper)
 
-We use **GNU Stow** to manage these dotfiles. It creates symbolic links from this repository directly to your `~/.config` folder, keeping everything clean and version-controlled.
+Before applying the configuration, let's set up the default wallpaper directory and copy the classic Hypr-chan mascot wallpaper (the one sitting on a train) so `hyprpaper` has something to display right away:
+
+```bash
+mkdir -p ~/Pictures/Wallpapers
+cp /usr/share/hypr/wall2.png ~/Pictures/Wallpapers/hypr-chan.png
+```
+*(Note: You can replace `hypr-chan.png` with any image of your choice later by editing `~/Hyprland/hyprland/.config/hypr/hyprpaper.conf`)*
+
+---
+
+## 🚀 3. Applying the Configuration
+
+We use **GNU Stow** to manage these configuration files. It creates symbolic links from this repository directly to your `~/.config` folder, keeping everything clean and version-controlled.
 
 1. **Clone this repository:**
    ```bash
-   git clone https://github.com/Lempi-PL/Hyprland ~/Hyprland
+   git clone https://github.com/Lempi-PL/Hyprland.git ~/Hyprland
    cd ~/Hyprland
    ```
 2. **Deploy the configurations:**
@@ -54,7 +66,7 @@ We use **GNU Stow** to manage these dotfiles. It creates symbolic links from thi
 
 ---
 
-## 🎨 3. Setting up the Theme (nwg-look)
+## 🎨 4. Setting up the Theme (nwg-look)
 
 Because Thunar and other apps rely on GTK, we need to apply the TokyoNight theme globally.
 
@@ -67,7 +79,7 @@ Because Thunar and other apps rely on GTK, we need to apply the TokyoNight theme
 
 ---
 
-## 📂 4. Configuration Breakdown (How it works)
+## 📂 5. Configuration Breakdown (How it works)
 
 Here is a detailed explanation of the files and scripts included in this repository.
 
@@ -92,7 +104,7 @@ The Waybar configuration is split into two distinct bars:
 
 ---
 
-## ⌨️ 5. Keybindings Reference
+## ⌨️ 6. Keybindings Reference
 
 The `SUPER` key (Windows/Command key) is your main modifier.
 
@@ -138,7 +150,7 @@ The `SUPER` key (Windows/Command key) is your main modifier.
 
 ---
 
-## 📚 Useful Resources
+## 📚 7. Useful Resources
 If you want to dive deeper into customizing this setup, check out the official documentation:
 * [Hyprland Master Tutorial](https://wiki.hypr.land/Getting-Started/Master-Tutorial/)
 * [Hyprland Useful Utilities](https://wiki.hypr.land/Useful-Utilities/Must-have/)
